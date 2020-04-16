@@ -1,0 +1,25 @@
+body{
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  
+}
+div
+{
+  margin: 5px;
+  padding: 10px;
+}
+#saisi_box{
+  border: 2px solid white;
+}
+#text_box{
+  border: 2px solid white;
+  min-height: 80vh;
+  max-height: 80vh;
+  overflow: scroll;
+}
+#saisi{
+  width: 100%;
+  height: 100%;
+}

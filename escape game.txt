@@ -1,0 +1,46 @@
+Escape game
+
+	Crée un style de "tchat" php
+	
+	Text pour détailler la piece
+		regarder
+
+	Intéraction avec les éléments la piece
+		regarder element
+			vous regarder la porte qui a une serrure
+		utiliser element
+		ouvrir element
+			vous ouvre un tirroir
+
+---------------------------------------------------------------------------
+	Qualité vie
+
+		engistrée ce que regarde le client garder un historique
+			proposé autocomplémentation
+
+		proposé de base les commande logique
+
+		Dans les text essayer que chaque objet puisse êtres êxaminer 
+
+---------------------------------------------------------------------------
+
+	Ajouter des stats au perssonage
+		Chance
+		Vue
+		Ouie
+		toucher
+		odorat
+
+	Pousser les intéraction plus loins
+		casser un objet
+		démonté
+
+	Ajout conséquence
+		électrique
+		blessure
+
+
+
+	
+
+		

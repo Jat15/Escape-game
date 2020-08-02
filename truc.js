@@ -5,35 +5,70 @@ function message(blabla) {
 	document.getElementById("text_box").innerHTML += "<p>"+blabla+"</p>";
 }
 
-function saisie(msg) {
-  if (/^regarder/.test(msg)) {
-  	if (/^regarder$/.test(msg))
-		message("Vous êtez dans une piéce completement vide, avec seulement une porte")
-    else if (/porte$/.test(msg))
-    	message("La porte a un loquet")
-    else if(/loquet$/.test(msg))
-    	message("Il faut le tourner!")
-    else 
-    	message("Non tu peu pas regarder sa....")
-  } else if (/^ouvrir/.test(msg)) {
-  	if (loquet && /porte$/.test(msg) )
-    	alert("Vous savez ouvrir une porte bravo !")
-    else if (/porte$/.test(msg))
-    	message("cette porte est coincer!")
-    else
-    	message("Vous pouvez pas ouvrir sa!")
-  } else if (/^tourner/.test(msg)) {
-  	if (/loquet$/.test(msg)) {
-        loquet = !loquet
-    	message("Clic")
-    } else {
-    	message("Vous voulez vraiment tourner n'importe quoi!")
-    }
-  } else if (/^aide$/.test(msg))
-		message("Vous pouvez utiliser : ouvrir, quitter, regarder, tourner")
-  else
-    message("Je comprend pas ce que tu dit !!!")
+let porte = false
+
+function lecture_porte() {
+  return porte
 }
+function action_porte() {
+  porte = !porte
+}
+
+const salle = {
+  regarder:{
+    porte : "La porte a un loquet.",
+    loquet : "Il faut le tourner!",
+    erreur : "Non tu peu pas regarder sa...."
+  },
+  tourner :{
+    loquet : {
+      instruction: action_porte,
+      message: "Clic!"
+    },
+    erreur : "Vous voulez vraiment tourner n'importe quoi!",
+  },
+  aide : {
+    erreur : "Vous pouvez utiliser : ouvrir, quitter, regarder, tourner"
+  },
+  ouvrir : {
+    porte : {
+      condition : lecture_porte,
+      false : "La porte est coiné",
+      true : "Vous savez ouvrir une porte bravo !"
+    }
+  }
+}
+
+
+
+
+function saisie(msg) {
+  for (let name in salle) {
+    let regex = new RegExp("^"+name);
+
+    if (regex.test(msg)) {
+      for (let objet in salle[name]) {
+        regex = new RegExp(objet);
+
+        if (regex.test(msg)) {
+
+          if (undefined != salle[name][objet]["condition"]) {
+            message ( salle[name][objet]["condition"]() ? salle[name][objet]["true"] : salle[name][objet]["false"] )
+          } else if (undefined != salle[name][objet]["instruction"]) {
+            salle[name][objet]["instruction"]()
+            message(salle[name][objet]["message"])
+          } else {
+            message(salle[name][objet])
+          }
+        }
+      }
+  
+    }
+  }
+}
+
+
+
 
 message("Si vous êtez nouveaux pouvez utilise la commande : \"aide\"")
 message("Mise en situation")
@@ -48,28 +83,3 @@ inputId.addEventListener('keyup', function onEvent(e) {
     }
 });
 
-
-
-const table_regex = {
-  regarder:{
-    porte : "La porte a un loquet.",
-    loquet : "Il faut le tourner!",
-    erreur : "Non tu peu pas regarder sa...."
-  },
-  tourner :{
-    loquet : "Clic!",
-    erreur : "Vous voulez vraiment tourner n'importe quoi!",
-  },
-  aide : {
-    erreur : "Vous pouvez utiliser : ouvrir, quitter, regarder, tourner"
-  },
-  ouvrir : {
-    porte : {
-      condition : porte,
-      false : "La porte est coiné",
-      true : "Vous savez ouvrir une porte bravo !"
-    }
-  }
-}
-
-porte = false

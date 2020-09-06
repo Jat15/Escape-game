@@ -4,20 +4,20 @@
 class Piece{
   constructor(param) {
     this.nom = param["nom"]
-    this.nord = param["surface"]
+    this.surface = param["surface"]
   }
 
-
+  description() {
+    return this.surface
+  }
 }
 
 //Plafond, sol, mur
 class Surface{
   constructor(param) {
     this.nom = param["nom"]
-    this.nord = param["objet"]
+    this.objet = param["objet"]
   }
-  
-
 }
 
 
@@ -52,27 +52,50 @@ class Loquet {
   }
 }
 
-//Création des intances
-
-const leloquet = new Loquet()
-  
-const laporte = new Porte({
-  nom : "porte",
-  ouverte : false,
-  fermeture : leloquet
-})
-
-//test
-/*alert(laporte.regarder())
-alert(leloquet.tourner())
-alert(laporte.ouvrir())*/
-
-//function
 
 function message(blabla) {
 	document.getElementById("text_box").innerHTML += "<p>"+blabla+"</p>";
 }
 
+
+//Création des intances
+
+const piece = new Piece({
+  nom:"La première pièce",
+  surface: {
+    nord: new Surface({
+      nom: "Mur nord"
+    }),
+    sud: new Surface({
+      nom: "Mur sud",
+      objet: new Porte({
+        nom : "Une superbe porte",
+        ouverte : false,
+        fermeture : new Loquet()
+      })
+    }),
+    est: new Surface({
+      nom: "Mur est"
+    }),
+    ouest: new Surface({
+      nom: "Mur ouest"
+    }),
+    sol: new Surface({
+      nom: "Sol"
+    }),
+    plafond: new Surface({
+      nom: "Plafond"
+    })
+  }
+})
+
+message(piece.surface.sud.objet.regarder())
+message(piece.surface.sud.objet.ouvrir())
+message(piece.surface.sud.objet.type_fermeture.tourner())
+message(piece.surface.sud.objet.ouvrir())
+
+
+/*
 //crée liste mot primaire lier au class
 //crée liste mot secondaire
 
@@ -99,23 +122,4 @@ inputId.addEventListener('keyup', function onEvent(e) {
     }
 });
 
-const salle = {
-  "mur nord" : {
-    message:{ }
-  },
-  "murd est" : {
-
-  },
-  "mur sud" : {
-
-  },
-  "mur ouest" : {
-
-  },
-  "plafond" : {
-
-  },
-  "sol" : {
-
-  }
-}
+*/

@@ -5,11 +5,16 @@ body{
   flex-direction: column;
   
 }
+
 div
 {
   margin: 5px;
   padding: 10px;
 }
+strong{
+  color: orange;
+}
+
 #saisi_box{
   border: 2px solid white;
 }
@@ -22,4 +27,14 @@ div
 #saisi{
   width: 100%;
   height: 100%;
+}
+
+.text-joueur{
+  color: yellow; 
+}
+.text-histoire{
+  color: cyan; 
+}
+.text-important{
+  color: red; 
 }
